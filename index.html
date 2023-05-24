@@ -6,101 +6,37 @@
     <title>Body Tracking Video Cropper</title>
     <link href="output.css" rel="stylesheet">
 </head>
-<body>
-    <div class="bg-white py-24 sm:py-32">
+<body class="bg-gradient-to-r from-pink-200 to-orange-100">
+    <div class="py-24 sm:py-32">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto max-w-2xl lg:text-center">
-            <h2 class="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2>
+            <h2 class="text-base font-semibold leading-7 text-indigo-600">AI-powered</h2>
             <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Body Tracking Video Cropper</p>
-            <p class="mt-6 text-lg leading-8 text-gray-600">AI-powered video cropping tool designed to optimize landscape videos for Instagram Reels. It utilizes body tracking technology to intelligently detect and track human subjects within the video frames. By analyzing the body movements and positions, the software dynamically crops the video content to focus on the tracked subjects while maintaining the desired Instagram Reels resolution.</p>
-          </div>
 
-          <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:text-center" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <label
-                class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-                <span class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                    </svg>
-                    <span class="font-medium text-gray-600">
-                        Drop files to Attach, or
-                        <span class="text-blue-600 underline">browse</span>
+            <div id="video-content" class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:text-center hidden">
+              <video class="mx-auto" width="288" height="512" controls><source src="output_03.mp4"></video>
+              <button class="mt-6 bg-indigo-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded upload-btn" onclick="" >Download</button>
+            </div>
+
+            <div id="main-content" class="">
+              <p class="mt-6 text-lg leading-8 text-gray-600">AI-powered video cropping tool designed to optimize landscape videos for Instagram Reels. It utilizes body tracking technology to intelligently detect and track human subjects within the video frames. By analyzing the body movements and positions, the software dynamically crops the video content to focus on the tracked subjects while maintaining the desired Instagram Reels resolution.</p>
+              <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:text-center" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+                <label class="flex justify-center w-full h-44 px-4 transition border-4 border-gray-600 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                    <span class="flex items-center space-x-2">
+                        <span class="font-medium text-gray-600">
+                            Drop files to Attach, or
+                            <span class="text-blue-600 underline">browse</span>
+                            <br>
+                            <span id="content-exist-info" class="font-medium text-gray-600"></span>
+                        </span>
                     </span>
-                </span>
-                <input type="file" accept=".mp4, .mov" name="file_upload" class="hidden">
-            </label>
-        </div>
-
-          <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:text-center">
-            <form id="form-file-upload">
-                <input  type="file" accept=".mp4, .mov" id="input-file-upload" multiple={true}  />
-                <label id="label-file-upload">
-                    <div>
-                    <p>Drag and drop your file here or</p>
-                    <button class="upload-button" onClick={onButtonClick}>Upload a file</button>
-                    </div> 
+                    <input type="file" accept=".mp4, .mov" name="file_upload" id="file_upload" class="hidden">
                 </label>
-            </form>
-          </div>
-
-
-          <!-- <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-            <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-              <div class="relative pl-16">
-                <dt class="text-base font-semibold leading-7 text-gray-900">
-                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-                    </svg>
-                  </div>
-                  AI Body Tracking
-                </dt>
-                <dd class="mt-2 text-base leading-7 text-gray-600">The software employs advanced artificial intelligence algorithms to accurately track human bodies within the video frames. This ensures that the cropping focuses on the main subjects throughout the video.</dd>
+                <button class="mt-6 bg-indigo-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded upload-btn" onclick="handleFormSubmit(event)" >Submit</button>
               </div>
-              <div class="relative pl-16">
-                <dt class="text-base font-semibold leading-7 text-gray-900">
-                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                    </svg>
-                  </div>
-                  Dynamic Cropping
-                </dt>
-                <dd class="mt-2 text-base leading-7 text-gray-600">Based on the tracked body positions, the software dynamically adjusts the cropping parameters frame by frame. This ensures that the subjects remain centered and properly framed, providing an optimal viewing experience for Instagram Reels.</dd>
-              </div>
-              <div class="relative pl-16">
-                <dt class="text-base font-semibold leading-7 text-gray-900">
-                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                    </svg>
-                  </div>
-                  Instagram Reels Resolution
-                </dt>
-                <dd class="mt-2 text-base leading-7 text-gray-600">Automatically sets the output resolution to the required dimensions for Instagram Reels, which is 547 by 972 pixels. This ensures that the cropped videos are compatible and optimized for the Instagram platform.</dd>
-              </div>
-              <div class="relative pl-16">
-                <dt class="text-base font-semibold leading-7 text-gray-900">
-                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0119.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 004.5 10.5a7.464 7.464 0 01-1.15 3.993m1.989 3.559A11.209 11.209 0 008.25 10.5a3.75 3.75 0 117.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 01-3.6 9.75m6.633-4.596a18.666 18.666 0 01-2.485 5.33" />
-                    </svg>
-                  </div>
-                  Export and Sharing
-                </dt>
-                <dd class="mt-2 text-base leading-7 text-gray-600"> Once the cropping process is completed, users can conveniently export the cropped videos in the desired format and easily share them on Instagram Reels or other social media platforms.</dd>
-              </div>
-            </dl>
-          </div>
-        </div> -->
+            </div>
+            </div>
       </div>
-
-
-
-
-    <h1></h1>
 
 </body>
 <script src="index.js"></script>
